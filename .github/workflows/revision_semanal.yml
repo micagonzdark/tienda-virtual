@@ -1,0 +1,60 @@
+name: Revisión Semanal Tienda Virtual
+
+on:
+  schedule:
+    # Corre todos los lunes a las 09:00 UTC (06:00 hora Argentina)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      ejecutar_escenario:
+        description: 'Simular también modo escenario (+25% costos)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  revision:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar revisión periódica y actualización de historial
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
+        run: |
+          npm run revision
+          npm run ranking
+
+      - name: Ejecutar simulación de escenario (opcional)
+        if: ${{ inputs.ejecutar_escenario == true }}
+        run: npm run escenario
+
+      - name: Ejecutar suite de validación (Evals)
+        run: npm test
+
+      - name: Commit y push de cambios en data/ y ranking.html
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ ranking.html
+          if git diff --staged --quiet; then
+            echo "No se registraron cambios para commitear."
+          else
+            git commit -m "Auto: Actualización periódica de tienda virtual y ranking [skip ci]"
+            git push
+          fi

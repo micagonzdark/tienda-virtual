@@ -79,3 +79,14 @@
     - Mantener: `prod-001` (ganancia baja de $11.86 a $11.21), `prod-002` (baja de $8.34 a $7.98) y `prod-003` (baja de $10.60 a $10.17). Los 3 siguen superando holgadamente los $5 de ganancia.
     - Descartar: `prod-004` (profundiza pérdida a -$9.30), `prod-005` (ganancia cae a $2.55, por debajo del mínimo de $5), y `prod-006` (faltan datos).
   - Comprobado que el modo escenario corre exclusivamente en memoria y no altera ningún archivo en disco.
+
+## Fase 7: Automatización (Completada)
+- Se creó el workflow de GitHub Actions en `.github/workflows/revision_semanal.yml`.
+- **Configuración del workflow**:
+  - Cron semanal: `0 9 * * 1` (Lunes 09:00 UTC).
+  - Disparador manual: `workflow_dispatch` con parámetro opcional `ejecutar_escenario` (boolean).
+  - Permisos de escritura (`contents: write`).
+  - Utiliza `OPENAI_API_KEY` inyectada como secret de GitHub.
+  - Ejecuta la revisión periódica, regeneración del ranking HTML, suite de evals, y realiza commit y push automático de los cambios en `data/` y `ranking.html`.
+- Se validó la sintaxis YAML.
+- Dado que el repositorio no tiene un origen remoto configurado localmente, se preparó todo en el repo git local y se detallaron los pasos exactos y concisos en `PENDIENTES_MANUALES.md`.

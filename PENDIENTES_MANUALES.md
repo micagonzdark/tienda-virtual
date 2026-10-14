@@ -20,3 +20,10 @@ Para que el workflow de GitHub Actions pueda consultar OpenAI:
 3. Nombre: `OPENAI_API_KEY`
 4. Valor: Tu clave de API de OpenAI (`sk-...`).
 5. Guardá los cambios.
+
+## 3. Ejecución Manual del Workflow en GitHub Actions
+Una vez subido el repo y configurado el secreto:
+1. Andá a la pestaña **Actions** en GitHub.
+2. Hacé clic en el workflow **Revisión Semanal Tienda Virtual** en la barra lateral izquierda.
+3. Hacé clic en el botón desplegable **Run workflow** y presioná el botón verde **Run workflow**.
+4. Podés habilitar la casilla "Simular también modo escenario (+25% costos)" si querés ver la simulación en los logs.

@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx src/evals.test.ts",
+    "test:margen": "tsx src/calcular_margen.test.ts",
+    "investigar": "tsx src/agente_investigacion.ts",
+    "ranking": "tsx src/generar_ranking.ts",
+    "revision": "tsx src/revision_y_escenario.ts",
+    "escenario": "tsx src/revision_y_escenario.ts --escenario proveedor25"
   },
   "keywords": [],
   "author": "",
