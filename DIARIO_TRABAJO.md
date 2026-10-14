@@ -32,3 +32,15 @@
   - Caso 2 (Pérdida): Ganancia negativa (-9.00 USD) y margen (-60.00%).
   - Caso 3 (Menor a mínimo USD 5): Ganancia 2.36 USD.
   - Casos 4 y 5 (Valores nulos o cero): Rechazo limpio sin crashear.
+
+## Fase 3: Agente de Investigación (Completada)
+- Se desarrolló `src/agente_investigacion.ts` integrando la Responses API de OpenAI (`client.responses.create`) con la herramienta nativa `web_search_preview`.
+- **Prueba en paralelo de API pública de MercadoLibre**:
+  - Se probó el endpoint público de búsqueda `https://api.mercadolibre.com/sites/MLA/search?q=soporte+celular` sin token.
+  - Resultado: Devolvió HTTP 403 Forbidden: `{ message: 'forbidden', error: 'forbidden', status: 403, cause: [] }`. Como indicaba la consigna, se anotó el error exacto en `PRUEBA_TIENDA.md` y no se insistió.
+- **Investigación de los 6 productos candidatos**:
+  - Se ejecutó la búsqueda web automatizada para los 6 candidatos de la categoría accesorios de celular.
+  - Se implementó un algoritmo de sanitización robusto para lidiar con formatos de respuesta de LLMs (como sufijos de moneda "ARS", "USD" o caracteres de control en strings).
+  - Cada dato almacena `valor`, `url`, `fecha_consulta`, `estado` ("confirmado" | "no confirmado") y `detalles`.
+  - Cuando faltaban datos (ej. tasas de devoluciones específicas o impuestos sin fuente confirmada), se marcaron estrictamente como `null` y "no confirmado", omitiéndose en el cálculo de margen conforme a la Regla 8 y el criterio de evals.
+  - Las quejas y reseñas se extrajeron fielmente: cuando no existieron reseñas verificadas (prod-006), se reportó `hay_resenas: false` con lista vacía sin inventar nada.
