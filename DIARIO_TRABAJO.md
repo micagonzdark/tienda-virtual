@@ -90,3 +90,14 @@
   - Ejecuta la revisión periódica, regeneración del ranking HTML, suite de evals, y realiza commit y push automático de los cambios en `data/` y `ranking.html`.
 - Se validó la sintaxis YAML.
 - Dado que el repositorio no tiene un origen remoto configurado localmente, se preparó todo en el repo git local y se detallaron los pasos exactos y concisos en `PENDIENTES_MANUALES.md`.
+
+## Fase 8: Prueba Completa e Idempotencia (Completada)
+- Se ejecutó el flujo completo (`npm run revision`, `npm run ranking`, `npm test`) dos veces consecutivas.
+- Verificación de no-sobreescritura:
+  - Antes de la primera corrida, `data/historial.csv` tenía 7 líneas (1 cabecera + 6 registros).
+  - Tras la corrida 1, alcanzó 13 líneas (se anexaron 6 registros sin pisar los anteriores).
+  - Tras la corrida 2, alcanzó 19 líneas (se anexaron 6 registros más de forma cronológica y limpia).
+- Se ejecutó la simulación en modo escenario (`npm run escenario`):
+  - Corrió 100% en memoria.
+  - Se verificó que `data/historial.csv` permaneció intacto con 19 líneas y `data/productos.json` no sufrió modificaciones.
+- Todos los entregables (`PRUEBA_TIENDA.md`, `DIARIO_TRABAJO.md`, `PENDIENTES_MANUALES.md`, `IDEAS.md`) están actualizados y consolidados.
