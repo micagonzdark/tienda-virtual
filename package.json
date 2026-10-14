@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "demo": "tsx src/agente_investigacion.ts --usar-cache && tsx src/generar_ranking.ts",
     "test": "tsx src/evals.test.ts",
     "test:margen": "tsx src/calcular_margen.test.ts",
     "investigar": "tsx src/agente_investigacion.ts",

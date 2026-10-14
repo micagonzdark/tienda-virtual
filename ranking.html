@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ranking Tienda Virtual Dropshipping - Argentina</title>
+  <title>Ranking Tienda Virtual Dropshipping - Plantilla Educativa</title>
   <style>
     :root {
       --bg: #f8fafc;
@@ -21,10 +21,21 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg); color: var(--text); padding: 2rem 1rem; line-height: 1.5; }
-    .container { max-width: 1200px; margin: 0 auto; }
-    header { margin-bottom: 2rem; border-bottom: 2px solid var(--border); padding-bottom: 1.5rem; }
+    .container { max-width: 1240px; margin: 0 auto; }
+    header { margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 1.25rem; }
     h1 { font-size: 1.875rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem; }
     p.subtitle { color: var(--text-muted); font-size: 1rem; }
+
+    .banner-editable {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-left: 5px solid #2563eb;
+      padding: 0.85rem 1.25rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: #1e40af;
+    }
 
     .summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
     .card { background: var(--card-bg); padding: 1.25rem; border-radius: 0.75rem; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
@@ -46,18 +57,41 @@
 
     .prod-name { font-weight: 600; color: #1e293b; font-size: 0.95rem; }
     .prod-cat { font-size: 0.75rem; color: var(--text-muted); }
-    .dato-box { display: flex; align-items: center; gap: 0.4rem; }
-    .valor-dato { font-weight: 500; }
+    .dato-box { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .valor-dato { font-weight: 600; }
     .source-link { font-size: 0.75rem; color: var(--primary); text-decoration: none; padding: 2px 5px; background: #eff6ff; border-radius: 4px; border: 1px solid #bfdbfe; }
     .source-link:hover { text-decoration: underline; background: #dbeafe; }
 
     .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
     .badge-unconfirmed { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
     .badge-confirmed { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
-    .badge-discarded { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .editable-hint { font-size: 0.7rem; color: #64748b; font-style: italic; }
 
-    .profit-pill { font-weight: 700; color: var(--success); font-size: 1.05rem; }
-    .margin-pct { font-size: 0.8rem; color: var(--text-muted); }
+    .provisional-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+    .confirmed-badge {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+    .provisional-hint { font-size: 0.72rem; color: #9a3412; font-style: italic; }
+
+    .profit-pill { font-weight: 800; color: var(--success); font-size: 1.15rem; }
 
     .quejas-list { font-size: 0.8rem; color: #475569; padding-left: 1.1rem; margin-top: 0.25rem; }
     .quejas-list li { margin-bottom: 2px; }
@@ -73,8 +107,12 @@
   <div class="container">
     <header>
       <h1>Tienda Virtual: Ranking de Oportunidades Dropshipping</h1>
-      <p class="subtitle">Evaluación de viabilidad económica para comercio electrónico en Argentina | MercadoLibre + Proveedores Internacionales</p>
+      <p class="subtitle">Plantilla de Clase para Alumnos de 13 años | MercadoLibre Argentina + Proveedores del Exterior</p>
     </header>
+
+    <div class="banner-editable">
+      <strong>💡 Espacio para el Alumno:</strong> Los campos de <strong>Flete</strong> e <strong>Impuestos</strong> son editables en <code>data/productos.json</code>. Mientras figuren como <em>No confirmado</em>, el margen se calcula con los datos disponibles y se muestra claramente como <strong>Margen Provisional</strong>.
+    </div>
 
     <div class="summary-cards">
       <div class="card">
@@ -87,11 +125,11 @@
       </div>
       <div class="card">
         <div class="card-label">Productos en Ranking</div>
-        <div class="card-value">3 / 4</div>
+        <div class="card-value">3 / 3</div>
       </div>
       <div class="card">
         <div class="card-label">Descartados por Regla</div>
-        <div class="card-value">3</div>
+        <div class="card-value">0</div>
       </div>
     </div>
 
@@ -104,10 +142,10 @@
             <th>Producto</th>
             <th>Precio Venta (ML)</th>
             <th>Costo Proveedor</th>
-            <th>Envío a Arg.</th>
+            <th>Envío a Arg. (Editable)</th>
+            <th>Impuestos (Editable)</th>
             <th>Comisión ML</th>
-            <th>Ganancia / Ud</th>
-            <th>Margen %</th>
+            <th>Ganancia / Margen</th>
             <th>Stock con $300</th>
             <th>Quejas más repetidas</th>
           </tr>
@@ -122,13 +160,24 @@
               </td>
               <td><div class="dato-box"><span class="valor-dato">$16.43</span> <a href="https://www.mercadolibre.com.ar/soporte-celular-magnetico-para-auto-rejilla-mixio-zm-16-negro/p/MLA57061603" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td><div class="dato-box"><span class="valor-dato">$2.60</span> <a href="https://spanish.alibaba.com/product-detail/Car-Air-Vent-Magnetic-Mount-N52-1601690125502.html" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
-              <td><span class="badge badge-unconfirmed">No confirmado</span></td>
+              <td>
+        <div class="dato-box">
+          <span class="badge badge-unconfirmed" title="Campo editable en data/productos.json">No confirmado</span>
+          <small class="editable-hint">(editable)</small>
+        </div>
+      </td>
+              <td>
+        <div class="dato-box">
+          <span class="badge badge-unconfirmed" title="Campo editable en data/productos.json">No confirmado</span>
+          <small class="editable-hint">(editable)</small>
+        </div>
+      </td>
               <td><div class="dato-box"><span class="valor-dato">12.0%</span> <a href="https://www.mercadolibre.com.ar/ayuda/Comisiones-y-costos-de-publicaci%C3%B3n/_MLA1055" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td>
+                <div class="provisional-badge">⚠️ Margen Provisional</div>
                 <div class="profit-pill">+$11.86</div>
-              </td>
-              <td>
                 <span class="valor-dato">72.2%</span>
+                <div class="provisional-hint">Falta confirmar flete o impuestos</div>
               </td>
               <td>
                 <strong>115 uds</strong><br>
@@ -137,9 +186,9 @@
               <td>
                 
                   <ul class="quejas-list">
-                    <li>Algunos usuarios reportan que el imán no es lo suficientemente fuerte para mantener el celular en su lugar durante viajes largos.</li><li>La instalación en ciertas rejillas de ventilación puede ser complicada debido al diseño del soporte.</li><li>El material del soporte podría ser más resistente para evitar daños con el tiempo.</li>
+                    <li>El imán pierde adherencia con vibraciones fuertes.</li><li>La instalación en rejillas circulares resulta inestable.</li><li>La placa metálica incluida para pegar al celular es gruesa.</li>
                   </ul>
-                  <a href="https://www.mercadolibre.com.ar/soporte-celular-magnetico-para-auto-rejilla-mixio-zm-16-negro/p/MLA57061603" target="_blank" class="source-link" style="margin-top:4px;display:inline-block;">Opiniones ML</a>
+                  <a href="https://www.mercadolibre.com.ar/soporte-celular-magnetico-para-auto-rejilla-mixio-zm-16-negro/p/MLA57061603" target="_blank" class="source-link" style="margin-top:4px;display:inline-block;">Opiniones Reales</a>
                 
               </td>
             </tr>
@@ -152,13 +201,24 @@
               </td>
               <td><div class="dato-box"><span class="valor-dato">$14.02</span> <a href="https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td><div class="dato-box"><span class="valor-dato">$1.74</span> <a href="https://spanish.alibaba.com/product-detail/GreenPort-3-in-1-540-degree-1600104496251.html" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
-              <td><span class="badge badge-unconfirmed">No confirmado</span></td>
+              <td>
+        <div class="dato-box">
+          <span class="badge badge-unconfirmed" title="Campo editable en data/productos.json">No confirmado</span>
+          <small class="editable-hint">(editable)</small>
+        </div>
+      </td>
+              <td>
+        <div class="dato-box">
+          <span class="badge badge-unconfirmed" title="Campo editable en data/productos.json">No confirmado</span>
+          <small class="editable-hint">(editable)</small>
+        </div>
+      </td>
               <td><div class="dato-box"><span class="valor-dato">12.0%</span> <a href="https://www.mercadolibre.com.ar/ayuda/Comisiones-de-Venta_1100" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td>
+                <div class="provisional-badge">⚠️ Margen Provisional</div>
                 <div class="profit-pill">+$10.60</div>
-              </td>
-              <td>
                 <span class="valor-dato">75.6%</span>
+                <div class="provisional-hint">Falta confirmar flete o impuestos</div>
               </td>
               <td>
                 <strong>172 uds</strong><br>
@@ -167,9 +227,9 @@
               <td>
                 
                   <ul class="quejas-list">
-                    <li>La calidad de construcción podría ser mejor.</li><li>La velocidad de carga no es tan rápida como se esperaba.</li><li>La rotación de 540 grados puede ser innecesaria para algunos usuarios.</li>
+                    <li>La velocidad de carga rápida no es compatible con todos los cargadores.</li><li>Las fichas magnéticas pequeñas pueden extraviarse si se quitan del celular.</li><li>La luz LED indicadora puede ser molesta de noche en el dormitorio.</li>
                   </ul>
-                  <a href="https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM" target="_blank" class="source-link" style="margin-top:4px;display:inline-block;">Opiniones ML</a>
+                  <a href="https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM" target="_blank" class="source-link" style="margin-top:4px;display:inline-block;">Opiniones Reales</a>
                 
               </td>
             </tr>
@@ -180,15 +240,21 @@
                 <div class="prod-name">Aro de luz LED selfie con clip para celular</div>
                 <div class="prod-cat">Accesorios para celulares (ID: prod-002)</div>
               </td>
-              <td><div class="dato-box"><span class="valor-dato">$11.60</span> <a href="https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163?international_context=true" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
+              <td><div class="dato-box"><span class="valor-dato">$11.60</span> <a href="https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td><div class="dato-box"><span class="valor-dato">$0.90</span> <a href="https://www.alibaba.com/product-introduction/ABS-Selfie-Light-Ring-Lights-LED_1600190322532.html" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td><div class="dato-box"><span class="valor-dato">$0.50</span> <a href="https://www.alibaba.com/product-introduction/ABS-Selfie-Light-Ring-Lights-LED_1600190322532.html" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
+              <td>
+        <div class="dato-box">
+          <span class="badge badge-unconfirmed" title="Campo editable en data/productos.json">No confirmado</span>
+          <small class="editable-hint">(editable)</small>
+        </div>
+      </td>
               <td><div class="dato-box"><span class="valor-dato">16.0%</span> <a href="https://www.mercadolibre.com.ar/ayuda/Comisiones-de-Venta_1100" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
               <td>
+                <div class="provisional-badge">⚠️ Margen Provisional</div>
                 <div class="profit-pill">+$8.34</div>
-              </td>
-              <td>
                 <span class="valor-dato">71.9%</span>
+                <div class="provisional-hint">Falta confirmar flete o impuestos</div>
               </td>
               <td>
                 <strong>214 uds</strong><br>
@@ -197,9 +263,9 @@
               <td>
                 
                   <ul class="quejas-list">
-                    <li>Duración de la batería inferior a lo esperado.</li><li>Calidad de construcción que no coincide con las expectativas.</li><li>Dificultad para ajustar la intensidad de la luz.</li>
+                    <li>Duración de la batería menor a la anunciada.</li><li>El clip puede apretar demasiado la pantalla si se usa funda gruesa.</li><li>Carga por micro-USB antigua en vez de USB-C.</li>
                   </ul>
-                  <a href="https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163?international_context=true" target="_blank" class="source-link" style="margin-top:4px;display:inline-block;">Opiniones ML</a>
+                  <a href="https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163" target="_blank" class="source-link" style="margin-top:4px;display:inline-block;">Opiniones Reales</a>
                 
               </td>
             </tr>
@@ -208,65 +274,10 @@
       </table>
     </div>
 
-    <div class="discarded-section">
-      <h2>Productos Descartados (No cumplen con los criterios de negocio)</h2>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Producto</th>
-              <th>Precio Venta</th>
-              <th>Costo Proveedor</th>
-              <th>Ganancia Estimada</th>
-              <th>Motivo del Descarte</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-              <tr>
-                <td><code>prod-004</code></td>
-                <td>
-                  <div class="prod-name">Lente gran angular y macro clip universal para cámara de celular</div>
-                  <div class="prod-cat">Accesorios para celulares</div>
-                </td>
-                <td><div class="dato-box"><span class="valor-dato">$11.50</span> <a href="https://www.mercadolibre.com.ar/set-3-lentes-para-celular-ojo-de-pez-gran-angular-teleobjetivo-clip-universal/p/MLA47781608" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
-                <td><div class="dato-box"><span class="valor-dato">$9.70</span> <a href="https://www.alibaba.com/product-introduction/Apexel-Universal-clip-on-4K-HD_60823558869.html" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
-                <td>$-5.61</td>
-                <td><span class="discard-reason">Ganancia por unidad ($-5.61) menor al mínimo requerido ($5.00)</span></td>
-              </tr>
-            
-              <tr>
-                <td><code>prod-005</code></td>
-                <td>
-                  <div class="prod-name">Mini trípode flexible tipo pulpo con control Bluetooth</div>
-                  <div class="prod-cat">Accesorios para celulares</div>
-                </td>
-                <td><div class="dato-box"><span class="valor-dato">$10.00</span> <a href="https://www.mercadolibre.com.ar/flex-octopus-tripod-phone-stand-360-rotate-bluetooth/p/MLA2095235209" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
-                <td><div class="dato-box"><span class="valor-dato">$3.00</span> <a href="https://www.aliexpress.com/item/1005002491234567" target="_blank" class="source-link" title="Ver fuente">🔗 Fuente</a></div></td>
-                <td>$3.80</td>
-                <td><span class="discard-reason">Ganancia por unidad ($3.8) menor al mínimo requerido ($5.00)</span></td>
-              </tr>
-            
-              <tr>
-                <td><code>prod-006</code></td>
-                <td>
-                  <div class="prod-name">Funda colgante anti-robo con cuerda ajustable para celular</div>
-                  <div class="prod-cat">Accesorios para celulares</div>
-                </td>
-                <td><span class="badge badge-unconfirmed">No confirmado</span></td>
-                <td><span class="badge badge-unconfirmed">No confirmado</span></td>
-                <td><span class="badge badge-unconfirmed">N/C</span></td>
-                <td><span class="discard-reason">Falta dato clave: precio de venta no confirmado</span></td>
-              </tr>
-            
-          </tbody>
-        </table>
-      </div>
-    </div>
+    
 
     <footer>
-      Generado automáticamente por el Agente de Tienda Virtual | Fecha de reporte: 2026-10-14 | Cumple con Regla 8: Datos no confirmados marcados explícitamente.
+      Generado automáticamente por la Plantilla de Tienda Virtual | Fecha de reporte: 2026-10-14 | Modo educativo 90 minutos.
     </footer>
   </div>
 </body>

@@ -101,3 +101,23 @@
   - Corrió 100% en memoria.
   - Se verificó que `data/historial.csv` permaneció intacto con 19 líneas y `data/productos.json` no sufrió modificaciones.
 - Todos los entregables (`PRUEBA_TIENDA.md`, `DIARIO_TRABAJO.md`, `PENDIENTES_MANUALES.md`, `IDEAS.md`) están actualizados y consolidados.
+
+## Conversión a Plantilla de Clase para Alumno de 13 Años (90 Minutos)
+- **Reducción de Candidatos**: Se ajustó `data/candidatos.json` a exactamente 3 candidatos para optimizar tiempos de clase.
+- **Separación de Instrucciones y Reglas**:
+  - Se creó `agente/instrucciones.md` con lenguaje amigable para que el alumno modifique prompts sin tocar código.
+  - Se adaptó `data/reglas.json` con comentarios explicativos.
+- **Endurecimiento de Parseo**:
+  - Algoritmo de reparación y sanitización de JSON reforzado.
+  - Reintento automático con esquema estricto de OpenAI si el modelo comete fallas sintácticas.
+  - Degradación elegante sin interrupción ni crashes.
+- **Cache Offline y Latencia**:
+  - Se implementó `data/cache/` con flag `--usar-cache` y comando `npm run demo`.
+  - **Medición de tiempo real**: `Measure-Command` registró **1.47 segundos** para la corrida completa (cumpliendo con creces la meta de < 2 minutos).
+- **Flete e Impuestos Editables**:
+  - Campos configurados en `data/productos.json`.
+  - Si no están cargados, `ranking.html` muestra claramente la insignia `⚠️ Margen Provisional`.
+  - Si el alumno los completa manualmente, el agente preserva sus ediciones entre ejecuciones.
+- **Lanzador Mac**: Se creó `Abrir Tienda.command` con validación de Node, instalación automática de dependencias y apertura automática del navegador.
+- **Guía del Alumno**: Se creó `README_ALUMNO.md` de exactamente 12 líneas (cumpliendo el tope de 15 líneas).
+- **Actualización de Documentación**: Se sincronizó `PRUEBA_TIENDA.md` con el informe de la plantilla y el resumen final de 5 líneas.
