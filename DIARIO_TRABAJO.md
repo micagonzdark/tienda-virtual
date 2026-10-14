@@ -66,3 +66,16 @@
   - (f) Manejo estricto de datos sin fuente: permanecen "no confirmados", `null` y excluidos del cálculo.
   - (g) Inmutabilidad del modo escenario: hashes SHA-256 de archivos en `data/` idénticos antes y después.
 - Se corrió la suite: 7/7 casos superados exitosamente sin fallos.
+
+## Fase 6: Revisión Semanal y Escenario (Completada)
+- Se desarrolló `src/revision_y_escenario.ts`.
+- **Modo normal (revisión periódica)**:
+  - Lee `data/productos.json`, evalúa cumplimiento y agrega nuevas observaciones a `data/historial.csv` con formato `fecha,producto,ganancia_por_unidad`.
+  - No sobrescribe historial previo (hace append cronológico).
+- **Modo escenario (`--escenario proveedor25`)**:
+  - Simula un aumento del 25% en costos de proveedor y costos de envío.
+  - Recalcula la viabilidad con el presupuesto fijo de USD 300 y el umbral de USD 5.
+  - Dictamen:
+    - Mantener: `prod-001` (ganancia baja de $11.86 a $11.21), `prod-002` (baja de $8.34 a $7.98) y `prod-003` (baja de $10.60 a $10.17). Los 3 siguen superando holgadamente los $5 de ganancia.
+    - Descartar: `prod-004` (profundiza pérdida a -$9.30), `prod-005` (ganancia cae a $2.55, por debajo del mínimo de $5), y `prod-006` (faltan datos).
+  - Comprobado que el modo escenario corre exclusivamente en memoria y no altera ningún archivo en disco.

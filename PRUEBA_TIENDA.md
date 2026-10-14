@@ -20,7 +20,7 @@
 | **Fase 3** | Agente de Investigación | ✅ Éxito | Búsqueda web nativa ejecutada para 6 candidatos. Error API pública ML: `Status: 403 { message: 'forbidden', error: 'forbidden', status: 403, cause: [] }` (requiere autenticación/OAuth obligatoria). Datos normalizados con fuentes y URLs reales. |
 | **Fase 4** | Salidas (JSON y Ranking HTML) | ✅ Éxito | `data/productos.json` generado con fichas completas. `ranking.html` generado con diseño profesional, tabla ordenada por ganancia, links a fuentes, badges de "No confirmado" y sección de descartados. |
 | **Fase 5** | Evals (a)-(g) | ✅ Éxito | 7/7 evals aprobados (100% pass) en `src/evals.test.ts`: descarte de pérdidas, sin inventar reseñas, precisión de cálculo, filtro de stock, descarte de margen bajo, omisión de datos sin fuente e inmutabilidad en escenario. |
-| **Fase 6** | Revisión Semanal y Escenario | ⏳ Pendiente | |
+| **Fase 6** | Revisión Semanal y Escenario | ✅ Éxito | `src/revision_y_escenario.ts` implementado. Genera `data/historial.csv`. `--escenario proveedor25` simula +25% de costos, dictamina mantener 3 productos y descartar 3, sin modificar archivos en disco. |
 | **Fase 7** | Automatización GitHub Actions | ⏳ Pendiente | |
 | **Fase 8** | Prueba Completa e Idempotencia | ⏳ Pendiente | |
 
