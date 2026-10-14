@@ -22,3 +22,13 @@
 - Se creó `data/reglas.json` con presupuesto USD 300, ganancia mínima por unidad USD 5, máximo 4 productos a la vez, y criterios de descarte explícitos.
 - Se creó `data/candidatos.json` con 6 productos representativos de la categoría "Accesorios para celulares", incluyendo términos de búsqueda tanto para MercadoLibre Argentina como para proveedores internacionales (AliExpress/Alibaba).
 - Verificación ejecutada con script de lectura de JSON: 6 candidatos cargados, reglas validadas.
+
+## Fase 2: Función de Cálculo (Completada)
+- Se implementó `calcular_margen(precio_venta, costo_producto, envio, comision_pct, impuestos_pct, devoluciones_pct)` en `src/calcular_margen.ts`.
+- La función valida de forma estricta todos los parámetros: si algún parámetro es `null`, `undefined` o no numérico, retorna `{ valido: false, ganancia_por_unidad: null, margen_porcentual: null }`.
+- Se implementó la definición de herramienta (`calcularMargenToolDefinition`) para permitir el uso directo del modelo como Tool/Function calling.
+- Se verificó con suite de pruebas manuales (`src/calcular_margen.test.ts`):
+  - Caso 1 (Estándar): Ganancia calculada a mano USD 8.35, margen 27.83% coinciden exactamente.
+  - Caso 2 (Pérdida): Ganancia negativa (-9.00 USD) y margen (-60.00%).
+  - Caso 3 (Menor a mínimo USD 5): Ganancia 2.36 USD.
+  - Casos 4 y 5 (Valores nulos o cero): Rechazo limpio sin crashear.
