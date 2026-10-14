@@ -44,3 +44,14 @@
   - Cada dato almacena `valor`, `url`, `fecha_consulta`, `estado` ("confirmado" | "no confirmado") y `detalles`.
   - Cuando faltaban datos (ej. tasas de devoluciones específicas o impuestos sin fuente confirmada), se marcaron estrictamente como `null` y "no confirmado", omitiéndose en el cálculo de margen conforme a la Regla 8 y el criterio de evals.
   - Las quejas y reseñas se extrajeron fielmente: cuando no existieron reseñas verificadas (prod-006), se reportó `hay_resenas: false` con lista vacía sin inventar nada.
+
+## Fase 4: Salidas (Completada)
+- Se consolidó `data/productos.json` con la ficha completa de los 6 productos investigados, conteniendo datos estructurados, fuentes con URLs, estados de confirmación, cálculo de margen y motivos de descarte.
+- Se implementó `src/generar_ranking.ts` y se generó `ranking.html`.
+- Características de `ranking.html`:
+  - Diseño responsive y prolijo con métricas de cabecera (presupuesto $300, ganancia mínima $5, cantidad seleccionada vs descartada).
+  - Tabla superior con los productos aprobados ordenados descendentemente por ganancia unitaria (Top 3: prod-001 con $11.86, prod-003 con $10.60, prod-002 con $8.34).
+  - Enlaces directos a las fuentes originales de MercadoLibre y AliExpress/Alibaba.
+  - Insignias visuales destacadas para los datos "No confirmados".
+  - Tabla inferior de "Productos Descartados" detallando el motivo exacto de exclusión de negocio (prod-004 por pérdida, prod-005 por margen inferior a $5, prod-006 por falta de datos confirmados).
+- Verificación ejecutada: `npx tsx src/generar_ranking.ts` genera el HTML sin errores y respeta todas las reglas de negocio.

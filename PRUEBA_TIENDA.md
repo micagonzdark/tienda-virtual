@@ -18,7 +18,7 @@
 | **Fase 1** | Reglas y Candidatos | ✅ Éxito | `data/reglas.json` creado (USD 300 stock, ganancia mín USD 5, max 4 productos). `data/candidatos.json` creado con 6 productos de accesorios celulares y queries optimizadas. |
 | **Fase 2** | Función de Cálculo de Margen | ✅ Éxito | `src/calcular_margen.ts` implementado con tool definition. Pruebas unitarias en `src/calcular_margen.test.ts` con 16/16 aserciones pasando (casos manuales, pérdida, valores nulos). |
 | **Fase 3** | Agente de Investigación | ✅ Éxito | Búsqueda web nativa ejecutada para 6 candidatos. Error API pública ML: `Status: 403 { message: 'forbidden', error: 'forbidden', status: 403, cause: [] }` (requiere autenticación/OAuth obligatoria). Datos normalizados con fuentes y URLs reales. |
-| **Fase 4** | Salidas (JSON y Ranking HTML) | ⏳ Pendiente | |
+| **Fase 4** | Salidas (JSON y Ranking HTML) | ✅ Éxito | `data/productos.json` generado con fichas completas. `ranking.html` generado con diseño profesional, tabla ordenada por ganancia, links a fuentes, badges de "No confirmado" y sección de descartados. |
 | **Fase 5** | Evals (a)-(g) | ⏳ Pendiente | |
 | **Fase 6** | Revisión Semanal y Escenario | ⏳ Pendiente | |
 | **Fase 7** | Automatización GitHub Actions | ⏳ Pendiente | |
