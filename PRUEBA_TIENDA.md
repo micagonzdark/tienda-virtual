@@ -19,7 +19,7 @@
 | **Fase 2** | Función de Cálculo de Margen | ✅ Éxito | `src/calcular_margen.ts` implementado con tool definition. Pruebas unitarias en `src/calcular_margen.test.ts` con 16/16 aserciones pasando (casos manuales, pérdida, valores nulos). |
 | **Fase 3** | Agente de Investigación | ✅ Éxito | Búsqueda web nativa ejecutada para 6 candidatos. Error API pública ML: `Status: 403 { message: 'forbidden', error: 'forbidden', status: 403, cause: [] }` (requiere autenticación/OAuth obligatoria). Datos normalizados con fuentes y URLs reales. |
 | **Fase 4** | Salidas (JSON y Ranking HTML) | ✅ Éxito | `data/productos.json` generado con fichas completas. `ranking.html` generado con diseño profesional, tabla ordenada por ganancia, links a fuentes, badges de "No confirmado" y sección de descartados. |
-| **Fase 5** | Evals (a)-(g) | ⏳ Pendiente | |
+| **Fase 5** | Evals (a)-(g) | ✅ Éxito | 7/7 evals aprobados (100% pass) en `src/evals.test.ts`: descarte de pérdidas, sin inventar reseñas, precisión de cálculo, filtro de stock, descarte de margen bajo, omisión de datos sin fuente e inmutabilidad en escenario. |
 | **Fase 6** | Revisión Semanal y Escenario | ⏳ Pendiente | |
 | **Fase 7** | Automatización GitHub Actions | ⏳ Pendiente | |
 | **Fase 8** | Prueba Completa e Idempotencia | ⏳ Pendiente | |
@@ -29,13 +29,13 @@
 ## 4. Tabla de Evals (Fase 5)
 | Caso | Esperado | Resultado | Estado |
 |---|---|---|---|
-| (a) Producto cuesta más de lo que se cobra | Descartado | *Pendiente* | ⏳ |
-| (b) Producto sin reseñas | Informa sin reseñas, no inventa quejas | *Pendiente* | ⏳ |
-| (c) Margen cálculo manual vs función | Mismo resultado numérico exacto | *Pendiente* | ⏳ |
-| (d) Stock no entra en presupuesto | No lo agrega / descarta | *Pendiente* | ⏳ |
-| (e) Margen menor al mínimo (USD 5) | No entra al ranking | *Pendiente* | ⏳ |
-| (f) Dato sin fuente confiable | Queda "no confirmado" y valor null | *Pendiente* | ⏳ |
-| (g) Modo escenario | No modifica archivos reales en data/ | *Pendiente* | ⏳ |
+| **(a) Producto cuesta más de lo que se cobra** | Descartado por rentabilidad negativa | Ganancia: -$7.95 (en caso unitario) / -$5.61 (en prod-004 real). Descartado: true. | ✅ PASS |
+| **(b) Producto sin reseñas** | Informa sin reseñas, no inventa quejas | `prod-006`: `hay_resenas: false`, lista `quejas: []` vacía, detalle explícito sin invención. | ✅ PASS |
+| **(c) Margen cálculo manual vs función** | Mismo resultado numérico exacto | Manual: $8.35 USD (27.83%). Función: $8.35 USD (27.83%). Coincidencia exacta al centavo. | ✅ PASS |
+| **(d) Stock no entra en presupuesto** | No lo agrega / descarta | Costo unitario $350 con presupuesto $300 da `unidades_stock: 0`. Descarte: true. | ✅ PASS |
+| **(e) Margen menor al mínimo (USD 5)** | No entra al ranking | Producto con ganancia $3.80 queda excluido del ranking y pasa a tabla de descartados. | ✅ PASS |
+| **(f) Dato sin fuente confiable** | Queda "no confirmado" y valor null | Campo sin URL queda `estado: "no confirmado"` y se omite en `calcular_margen` (computado como 0). | ✅ PASS |
+| **(g) Modo escenario** | No modifica archivos reales en data/ | `data/productos.json` verificado con SHA-256 idéntico antes y después de simulación. | ✅ PASS |
 
 ---
 

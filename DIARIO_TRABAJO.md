@@ -55,3 +55,14 @@
   - Insignias visuales destacadas para los datos "No confirmados".
   - Tabla inferior de "Productos Descartados" detallando el motivo exacto de exclusión de negocio (prod-004 por pérdida, prod-005 por margen inferior a $5, prod-006 por falta de datos confirmados).
 - Verificación ejecutada: `npx tsx src/generar_ranking.ts` genera el HTML sin errores y respeta todas las reglas de negocio.
+
+## Fase 5: Evals (Completada)
+- Se programó primero la suite de evals en `src/evals.test.ts` cubriendo los 7 casos requeridos:
+  - (a) Descarte de producto con costo mayor a venta (evaluado con caso unitario y verificado con `prod-004`).
+  - (b) Verificación de no invención de reseñas/quejas (verificado con `prod-006`: `hay_resenas: false`, quejas vacías).
+  - (c) Comparación matemática contra cálculo manual ($8.35 USD y 27.83% idénticos al centavo).
+  - (d) Control de presupuesto para stock ($350 unitario vs $300 presupuesto produce 0 unidades y rechazo).
+  - (e) Exclusión del ranking para ganancias inferiores a USD 5 ($3.80 unitario excluido).
+  - (f) Manejo estricto de datos sin fuente: permanecen "no confirmados", `null` y excluidos del cálculo.
+  - (g) Inmutabilidad del modo escenario: hashes SHA-256 de archivos en `data/` idénticos antes y después.
+- Se corrió la suite: 7/7 casos superados exitosamente sin fallos.
