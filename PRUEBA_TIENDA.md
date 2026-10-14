@@ -15,7 +15,7 @@
 | Fase | Descripción | Estado | Notas / Resultados |
 |---|---|---|---|
 | **Fase 0** | Diagnóstico de Node y API OpenAI | ✅ Éxito | Node `v24.15.0`. Conexión exitosa a OpenAI con modelo `gpt-4o-mini`. Búsqueda web nativa validada vía `client.responses.create` con tool `web_search_preview` (retorna `web_search_call` y anotaciones con URLs reales). |
-| **Fase 1** | Reglas y Candidatos | ⏳ Pendiente | |
+| **Fase 1** | Reglas y Candidatos | ✅ Éxito | `data/reglas.json` creado (USD 300 stock, ganancia mín USD 5, max 4 productos). `data/candidatos.json` creado con 6 productos de accesorios celulares y queries optimizadas. |
 | **Fase 2** | Función de Cálculo de Margen | ⏳ Pendiente | |
 | **Fase 3** | Agente de Investigación | ⏳ Pendiente | |
 | **Fase 4** | Salidas (JSON y Ranking HTML) | ⏳ Pendiente | |

@@ -1,0 +1,10 @@
+{
+  "presupuesto_stock_usd": 300,
+  "ganancia_minima_unidad_usd": 5,
+  "max_productos": 4,
+  "reglas_descarte": [
+    "ganancia_por_unidad < ganancia_minima_unidad_usd",
+    "faltan_datos_confiables"
+  ],
+  "descripcion": "Presupuesto virtual USD 300 para stock; ganancia mínima por unidad USD 5; máximo 4 productos a la vez; descarta un producto si la ganancia por unidad es menor al mínimo o si faltan datos confiables."
+}

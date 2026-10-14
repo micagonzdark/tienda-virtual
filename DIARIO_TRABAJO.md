@@ -17,3 +17,8 @@
   - Se probó inicialmente `client.chat.completions.create` con `web_search_preview`, la cual arrojó error 400 (`Invalid value: 'web_search_preview'. Supported values are: 'function' and 'custom'`).
   - Siguiendo la regla de intentar enfoques alternativos, se probó la Responses API (`client.responses.create({ model: "gpt-4o-mini", tools: [{ type: "web_search_preview" }] })`), la cual funcionó de manera inmediata y nativa, retornando eventos `web_search_call` con queries y anotaciones `url_citation` con enlaces y títulos reales de la web argentina.
 - **Resultado de prueba**: Consulta de prueba exitosa sobre cotización del dólar con fuentes oficiales de Argentina.
+
+## Fase 1: Reglas y Datos (Completada)
+- Se creó `data/reglas.json` con presupuesto USD 300, ganancia mínima por unidad USD 5, máximo 4 productos a la vez, y criterios de descarte explícitos.
+- Se creó `data/candidatos.json` con 6 productos representativos de la categoría "Accesorios para celulares", incluyendo términos de búsqueda tanto para MercadoLibre Argentina como para proveedores internacionales (AliExpress/Alibaba).
+- Verificación ejecutada con script de lectura de JSON: 6 candidatos cargados, reglas validadas.

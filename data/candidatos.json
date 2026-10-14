@@ -1,0 +1,44 @@
+[
+  {
+    "id": "prod-001",
+    "nombre": "Soporte magnético para celular auto para rejilla",
+    "categoria": "Accesorios para celulares",
+    "termino_busqueda_ml": "soporte magnetico celular auto rejilla ventilacion",
+    "termino_busqueda_proveedor": "magnetic car phone mount air vent holder"
+  },
+  {
+    "id": "prod-002",
+    "nombre": "Aro de luz LED selfie con clip para celular",
+    "categoria": "Accesorios para celulares",
+    "termino_busqueda_ml": "aro de luz led selfie clip celular recargable",
+    "termino_busqueda_proveedor": "selfie ring light clip rechargeable phone"
+  },
+  {
+    "id": "prod-003",
+    "nombre": "Cable cargador magnético rotativo 540 grados 3 en 1",
+    "categoria": "Accesorios para celulares",
+    "termino_busqueda_ml": "cable magnetico 540 3 en 1 carga rapida",
+    "termino_busqueda_proveedor": "magnetic charging cable 540 rotation 3 in 1"
+  },
+  {
+    "id": "prod-004",
+    "nombre": "Lente gran angular y macro clip universal para cámara de celular",
+    "categoria": "Accesorios para celulares",
+    "termino_busqueda_ml": "lente macro gran angular clip smartphone celular",
+    "termino_busqueda_proveedor": "universal clip camera lens wide angle macro phone"
+  },
+  {
+    "id": "prod-005",
+    "nombre": "Mini trípode flexible tipo pulpo con control Bluetooth",
+    "categoria": "Accesorios para celulares",
+    "termino_busqueda_ml": "mini tripode flexible pulpo celular control bluetooth",
+    "termino_busqueda_proveedor": "flexible octopus tripod phone bluetooth remote"
+  },
+  {
+    "id": "prod-006",
+    "nombre": "Funda colgante anti-robo con cuerda ajustable para celular",
+    "categoria": "Accesorios para celulares",
+    "termino_busqueda_ml": "funda colgante cuerda cordon celular anti caida",
+    "termino_busqueda_proveedor": "phone case lanyard strap neck crossbody"
+  }
+]
