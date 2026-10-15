@@ -26,11 +26,11 @@
       "detalles": "El costo de adquisición en el proveedor mayorista es competitivo."
     },
     "costo_envio": {
-      "valor": 2.5,
-      "url": "https://www.correoargentino.com.ar/puerta-a-puerta",
+      "valor": null,
+      "url": null,
       "fecha_consulta": "2026-10-15",
-      "estado": "confirmado",
-      "detalles": "Costo de envío cargado manualmente por el alumno ($2.50 USD)"
+      "estado": "no confirmado",
+      "detalles": "No se encontró información sobre el costo de envío a Argentina."
     },
     "comision_ml_pct": {
       "valor": 12,
@@ -40,11 +40,11 @@
       "detalles": "La comisión de MercadoLibre para este tipo de producto es del 12%."
     },
     "impuestos_pct": {
-      "valor": 10.5,
-      "url": "https://www.afip.gob.ar/envios-internacionales/",
+      "valor": null,
+      "url": null,
       "fecha_consulta": "2026-10-15",
-      "estado": "confirmado",
-      "detalles": "Impuestos estimados cargados manualmente por el alumno (10.5%)"
+      "estado": "no confirmado",
+      "detalles": "No se encontró información específica sobre impuestos aplicables."
     },
     "tasa_devoluciones_pct": {
       "valor": null,
@@ -67,27 +67,29 @@
     },
     "calculo_margen": {
       "valido": true,
-      "ganancia_por_unidad": 7.19,
-      "margen_porcentual": 45.34,
+      "ganancia_por_unidad": 11.36,
+      "margen_porcentual": 71.61,
       "desglose": {
         "precio_venta": 15.86,
         "costo_producto": 2.6,
-        "envio": 2.5,
+        "envio": 0,
         "comision_pct": 12,
-        "impuestos_pct": 10.5,
+        "impuestos_pct": 0,
         "devoluciones_pct": 0,
-        "costos_porcentuales": 3.57,
-        "costo_total": 8.67,
+        "costos_porcentuales": 1.9,
+        "costo_total": 4.5,
         "datos_omitidos": [
+          "envio",
+          "impuestos_pct",
           "devoluciones_pct"
         ]
       },
-      "es_provisional": false
+      "es_provisional": true
     },
     "cumple_reglas": true,
     "motivo_descarte": null,
-    "unidades_stock_posibles": 58,
-    "inversion_stock_estimada": 295.8
+    "unidades_stock_posibles": 115,
+    "inversion_stock_estimada": 299
   },
   {
     "id": "prod-002",
@@ -116,11 +118,11 @@
       "detalles": "El costo de adquisición del producto es competitivo en comparación con el precio de venta."
     },
     "costo_envio": {
-      "valor": 0.5,
-      "url": "https://www.alibaba.com/product-introduction/ABS-Selfie-Light-Ring-Lights-LED_1600190322532.html",
-      "fecha_consulta": "2026-10-14",
-      "estado": "confirmado",
-      "detalles": "Costo estimado de envío por unidad desde Alibaba a Argentina para el producto mencionado."
+      "valor": null,
+      "url": null,
+      "fecha_consulta": "2026-10-15",
+      "estado": "no confirmado",
+      "detalles": "No se encontró información sobre el costo de envío a Argentina."
     },
     "comision_ml_pct": {
       "valor": 16,
@@ -157,18 +159,19 @@
     },
     "calculo_margen": {
       "valido": true,
-      "ganancia_por_unidad": 8.01,
-      "margen_porcentual": 71.5,
+      "ganancia_por_unidad": 8.51,
+      "margen_porcentual": 75.96,
       "desglose": {
         "precio_venta": 11.2,
         "costo_producto": 0.9,
-        "envio": 0.5,
+        "envio": 0,
         "comision_pct": 16,
         "impuestos_pct": 0,
         "devoluciones_pct": 0,
         "costos_porcentuales": 1.79,
-        "costo_total": 3.19,
+        "costo_total": 2.69,
         "datos_omitidos": [
+          "envio",
           "impuestos_pct",
           "devoluciones_pct"
         ]
@@ -177,8 +180,8 @@
     },
     "cumple_reglas": true,
     "motivo_descarte": null,
-    "unidades_stock_posibles": 214,
-    "inversion_stock_estimada": 299.6
+    "unidades_stock_posibles": 333,
+    "inversion_stock_estimada": 299.7
   },
   {
     "id": "prod-003",

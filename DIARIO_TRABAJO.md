@@ -137,3 +137,8 @@
    - Se configuró el permiso ejecutable Git en `100755` (`chmod +x`).
    - Se agregó `export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"` para Apple Silicon e Intel.
    - Se documentaron las restricciones no testeables en Windows (Gatekeeper quarantine y permisos de sudo de Homebrew).
+4. **Restablecimiento para Entrega de la Plantilla**:
+   - Se devolvieron flete e impuestos de los 3 candidatos al estado `no confirmado` (`null`), removiendo los valores de prueba.
+   - Se recalculó el margen y se regeneró `ranking.html`, verificando que los 3 artículos muestran la etiqueta `⚠️ Margen Provisional` y los campos editables como `No confirmado`.
+   - Se validaron todos los tests y evals con 100% de éxito.
+
