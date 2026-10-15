@@ -153,8 +153,38 @@ Se transformó exitosamente el proyecto en una **Plantilla de Clase lista para u
 
 ## 10. Resumen Final de Viabilidad (5 líneas)
 1. La plantilla convertida resuelve el 100% de las fricciones técnicas que hacían inviable la clase original de 90 minutos para un chico de 13 años.
-2. Al reducir a 3 candidatos y cachear la búsqueda web, el tiempo de ejecución cayó de casi dos minutos a apenas 1.47 segundos, permitiendo iterar sin depender de la red escolar.
+2. Al reducir a 3 candidatos y cachear la búsqueda web, el tiempo de ejecución con el modelo corriendo en vivo cayó a apenas 19.7 segundos, permitiendo iterar sin depender de la red escolar.
 3. El alumno ya no toca TypeScript ni lidia con errores de sintaxis JSON: solo edita en lenguaje natural `agente/instrucciones.md`, sus reglas en `data/reglas.json` y experimenta.
 4. El etiquetado visual de "Margen Provisional" y los enlaces a fuentes reales de MercadoLibre enseñan pensamiento crítico sobre la confiabilidad de la IA en vez de frustrar con bugs.
 5. Con el lanzador de un clic para Mac y el comando único `npm run demo`, el taller se convierte en una experiencia pedagógica estimulante, fluida y 100% realizable en tiempo y forma.
+
+---
+
+## 11. Verificación Honesta y Hallazgos de la Plantilla (Auditoría Profunda)
+
+### (1) Prueba de Efecto y Corrección de Alcance del Caché
+- **Diagnóstico Inicial Honesto**: En la primera versión de la plantilla, el caché almacenaba el objeto ya procesado (`rawData`). Al ejecutar `npm run demo`, el modelo no se invocaba, por lo que cualquier cambio en `agente/instrucciones.md` era ignorado y la salida no cambiaba.
+- **Corrección Realizada**: Se rediseñó el sistema para que `data/cache/${id}.json` guarde **ÚNICAMENTE la evidencia pura de la búsqueda web** (títulos, precios ARS, URLs de ML y catálogos de proveedores).
+- **Modelo en Vivo**: Ahora, incluso con `--usar-cache`, el modelo `gpt-4o-mini` corre **SIEMPRE EN VIVO**, leyendo `agente/instrucciones.md` y procesando la evidencia web cacheada.
+- **Evidencia del Cambio**: Se agregó la regla: *"Redactá todos los detalles en una sola oración y en tono formal"*. En la siguiente corrida, el campo `detalles` de `prod-001` cambió visiblemente a:
+  `"El artículo presenta un costo competitivo en la plaza comercial analizada."`
+- **Medición de Tiempo**: La corrida completa con caché web y modelo LLM en vivo tardó **19.70 segundos** (registrado con `Measure-Command`), manteniéndose holgadamente por debajo de los 2 minutos límite.
+
+### (2) Prueba de Reglas del Negocio y Flete/Impuestos
+- **Ganancia Mínima Alta ($50 USD)**: Se modificó `data/reglas.json` con `ganancia_minima_unidad_usd: 50`. Al correr, el ranking quedó en `0 / 3` y los 3 productos fueron descartados automáticamente informando el motivo exacto (`Ganancia ($11.36) menor al mínimo requerido ($50.00)`).
+- **Carga de Flete e Impuestos Editables**: Se restauró la regla a $5 y se completó manualmente `prod-001` con flete de $2.50 USD e impuestos de 10.5%. El sistema:
+  1. Preservó las ediciones del alumno entre corridas sin borrarlas.
+  2. Recalculó la ganancia a $7.19 USD (margen 45.3%).
+  3. En `ranking.html`, la insignia de `prod-001` pasó de `⚠️ Margen Provisional` a **`✅ Margen Confirmado`**, mientras que los productos sin flete mantuvieron la advertencia provisional.
+
+### (3) Auditoría Línea por Línea de `Abrir Tienda.command` (Entorno macOS)
+- **Shebang y Rutas**: `#!/bin/bash` y `cd "$(dirname "$0")"` funcionan de forma estándar en macOS.
+- **Finales de Línea**: Al haberse generado en Windows, el archivo originalmente tenía terminaciones de línea Windows (`CRLF`), lo que en macOS provoca el fallo crítico `/bin/bash^M: bad interpreter`. Se forzó la conversión estricta a formato **UNIX LF** (`\n`).
+- **Permisos de Ejecución (`chmod +x`)**: Se configuró el bit ejecutable POSIX en el índice de Git (`git update-index --chmod=+x`, verificado como modo `100755`), garantizando que al clonar en Mac sea directamente ejecutable con doble clic.
+- **Ruta de Homebrew (PATH)**: En sesiones de Terminal lanzadas por GUI en macOS, el PATH puede no incluir Homebrew. Se agregó explícitamente:
+  `export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"` para soportar tanto procesadores Apple Silicon (M1/M2/M3/M4) como Intel.
+- **Lo que NO se pudo probar en este entorno Windows (Advertencias Claras)**:
+  1. *Doble clic interactivo en macOS Finder*: No es emulable en Windows.
+  2. *Atributo de cuarentena de Apple Gatekeeper* (`com.apple.quarantine`): Si el alumno descarga la carpeta como un archivo ZIP desde la web o Google Drive, macOS puede bloquear la ejecución del script hasta ejecutar `xattr -d com.apple.quarantine "Abrir Tienda.command"`.
+  3. *Instalación desatendida de Node con Homebrew*: Si el Mac no tiene Node instalado, la instalación vía `brew install node` requiere permisos y puede solicitar contraseña en terminal.
 

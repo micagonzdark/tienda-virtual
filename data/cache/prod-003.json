@@ -1,56 +1,31 @@
 {
-  "precio_venta_usd": {
-    "valor": 14.02,
-    "valor_ars": 19628,
-    "url": "https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM",
-    "estado": "confirmado",
-    "detalles": "Precio de venta en MercadoLibre Argentina para Cable Magnético 3 En 1 Con Rotación De 540°."
-  },
-  "competencia_publicaciones": {
-    "valor": 5,
-    "url": "https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM",
-    "estado": "confirmado",
-    "detalles": "5 publicaciones competidoras similares en MercadoLibre."
-  },
-  "costo_proveedor_usd": {
-    "valor": 1.74,
-    "url": "https://spanish.alibaba.com/product-detail/GreenPort-3-in-1-540-degree-1600104496251.html",
-    "estado": "confirmado",
-    "detalles": "Costo unitario de compra en AliExpress para Cable Magnético 3 En 1 De 540 Grados."
-  },
-  "costo_envio_usd": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Costo de envío a Argentina no confirmado en la búsqueda. Campo editable en productos.json."
-  },
-  "comision_ml_pct": {
-    "valor": 12,
-    "url": "https://www.mercadolibre.com.ar/ayuda/Comisiones-de-Venta_1100",
-    "estado": "confirmado",
-    "detalles": "Comisión estándar del 12% para la categoría en MercadoLibre Argentina."
-  },
-  "impuestos_pct": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Impuestos de importación no confirmados. Campo editable en productos.json."
-  },
-  "tasa_devoluciones_pct": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "No se encontraron estadísticas oficiales de fallas."
-  },
-  "resenas": {
-    "hay_resenas": true,
-    "quejas": [
-      "La velocidad de carga rápida no es compatible con todos los cargadores.",
-      "Las fichas magnéticas pequeñas pueden extraviarse si se quitan del celular.",
-      "La luz LED indicadora puede ser molesta de noche en el dormitorio."
-    ],
-    "url": "https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM",
-    "estado": "confirmado",
-    "detalles": "Opiniones de compradores en MercadoLibre sobre el cable magnético."
+  "id": "prod-003",
+  "nombre": "Cable cargador magnético rotativo 540 grados 3 en 1",
+  "categoria": "Accesorios para celulares",
+  "fecha_busqueda": "2026-10-14",
+  "evidencia_web": {
+    "mercadolibre": {
+      "titulo_encontrado": "Cable Magnético 3 En 1 Con Rotación De 540 Grados",
+      "precio_ars": 19628,
+      "tasa_dolar_referencia": 1400,
+      "publicaciones_competencia_aprox": 5,
+      "url": "https://articulo.mercadolibre.com.ar/MLA-3282413366-cable-magnetico-3-en-1-con-rotacion-de-540-_JM",
+      "url_comisiones": "https://www.mercadolibre.com.ar/ayuda/Comisiones-de-Venta_1100",
+      "comision_porcentaje": 12,
+      "opiniones_reales": [
+        "No todos los cargadores rápidos son compatibles con la ficha magnética.",
+        "Los pequeños conectores magnéticos se salen del bolsillo y se pierden fácil.",
+        "La luz LED de la punta queda encendida siempre y molesta para dormir."
+      ]
+    },
+    "proveedor": {
+      "plataforma": "Alibaba / AliExpress",
+      "titulo": "GreenPort 3 in 1 540 degree rotating magnetic charging cable",
+      "precio_usd": 1.74,
+      "url": "https://spanish.alibaba.com/product-detail/GreenPort-3-in-1-540-degree-1600104496251.html",
+      "costo_envio_argentina": null,
+      "impuestos_especificos": null,
+      "devoluciones_estimadas": null
+    }
   }
 }

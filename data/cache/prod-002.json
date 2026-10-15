@@ -1,56 +1,31 @@
 {
-  "precio_venta_usd": {
-    "valor": 11.6,
-    "valor_ars": 16240,
-    "url": "https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163",
-    "estado": "confirmado",
-    "detalles": "Precio de publicación en MercadoLibre Argentina para un aro de luz LED con clip recargable."
-  },
-  "competencia_publicaciones": {
-    "valor": 10,
-    "url": "https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163",
-    "estado": "confirmado",
-    "detalles": "Aproximadamente 10 publicaciones similares encontradas en MercadoLibre Argentina."
-  },
-  "costo_proveedor_usd": {
-    "valor": 0.9,
-    "url": "https://www.alibaba.com/product-introduction/ABS-Selfie-Light-Ring-Lights-LED_1600190322532.html",
-    "estado": "confirmado",
-    "detalles": "Precio unitario mayorista en Alibaba para aro de luz LED selfie con clip."
-  },
-  "costo_envio_usd": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Costo de envío a Argentina no confirmado en la búsqueda. Campo editable en productos.json."
-  },
-  "comision_ml_pct": {
-    "valor": 16,
-    "url": "https://www.mercadolibre.com.ar/ayuda/Comisiones-de-Venta_1100",
-    "estado": "confirmado",
-    "detalles": "Comisión estándar del 16% en MercadoLibre Argentina para accesorios de celulares."
-  },
-  "impuestos_pct": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Impuestos de importación no confirmados. Campo editable en productos.json."
-  },
-  "tasa_devoluciones_pct": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "No se encontraron estadísticas verificables sobre devoluciones."
-  },
-  "resenas": {
-    "hay_resenas": true,
-    "quejas": [
-      "Duración de la batería menor a la anunciada.",
-      "El clip puede apretar demasiado la pantalla si se usa funda gruesa.",
-      "Carga por micro-USB antigua en vez de USB-C."
-    ],
-    "url": "https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163",
-    "estado": "confirmado",
-    "detalles": "Opiniones de compradores en MercadoLibre Argentina sobre el mini aro selfie."
+  "id": "prod-002",
+  "nombre": "Aro de luz LED selfie con clip para celular",
+  "categoria": "Accesorios para celulares",
+  "fecha_busqueda": "2026-10-14",
+  "evidencia_web": {
+    "mercadolibre": {
+      "titulo_encontrado": "Mini Aro de Luz LED Recargable para Selfie con Clip",
+      "precio_ars": 16240,
+      "tasa_dolar_referencia": 1400,
+      "publicaciones_competencia_aprox": 10,
+      "url": "https://www.mercadolibre.com.ar/aro-de-luz-led-con-clip-para-celular-y-notebook/up/MLAU4050876163",
+      "url_comisiones": "https://www.mercadolibre.com.ar/ayuda/Comisiones-de-Venta_1100",
+      "comision_porcentaje": 16,
+      "opiniones_reales": [
+        "La batería dura menos de 30 minutos a máxima potencia de brillo.",
+        "El clip ejerce mucha presión y puede dañar protectores de pantalla finos.",
+        "El conector de carga es micro-USB en lugar de tipo C moderno."
+      ]
+    },
+    "proveedor": {
+      "plataforma": "Alibaba / AliExpress",
+      "titulo": "ABS Selfie Light Ring Lights LED Rechargeable",
+      "precio_usd": 0.90,
+      "url": "https://www.alibaba.com/product-introduction/ABS-Selfie-Light-Ring-Lights-LED_1600190322532.html",
+      "costo_envio_argentina": null,
+      "impuestos_especificos": null,
+      "devoluciones_estimadas": null
+    }
   }
 }

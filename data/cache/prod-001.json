@@ -1,56 +1,31 @@
 {
-  "precio_venta_usd": {
-    "valor": 16.43,
-    "valor_ars": 22999,
-    "url": "https://www.mercadolibre.com.ar/soporte-celular-magnetico-para-auto-rejilla-mixio-zm-16-negro/p/MLA57061603",
-    "estado": "confirmado",
-    "detalles": "Precio de venta en MercadoLibre Argentina para el producto 'Soporte Celular Magnético para Auto Rejilla Mixio ZM-16 Negro'."
-  },
-  "competencia_publicaciones": {
-    "valor": 10,
-    "url": "https://www.mercadolibre.com.ar/search?as_searchtype=category&category_id=MLA1055&as_q=soporte+magnetico+celular+auto+rejilla+ventilacion",
-    "estado": "confirmado",
-    "detalles": "Número de publicaciones similares en MercadoLibre Argentina para el término de búsqueda 'soporte magnetico celular auto rejilla ventilacion'."
-  },
-  "costo_proveedor_usd": {
-    "valor": 2.6,
-    "url": "https://spanish.alibaba.com/product-detail/Car-Air-Vent-Magnetic-Mount-N52-1601690125502.html",
-    "estado": "confirmado",
-    "detalles": "Costo unitario de compra en Alibaba para el producto 'Soporte Magnético para Celular en Rejilla de Ventilación de Auto, Imán N52 de Alta Potencia'."
-  },
-  "costo_envio_usd": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Costo de envío a Argentina no confirmado en la búsqueda. Campo editable en productos.json."
-  },
-  "comision_ml_pct": {
-    "valor": 12,
-    "url": "https://www.mercadolibre.com.ar/ayuda/Comisiones-y-costos-de-publicaci%C3%B3n/_MLA1055",
-    "estado": "confirmado",
-    "detalles": "Comisión por venta clásica vigente en MercadoLibre Argentina para la categoría 'Accesorios para celulares'."
-  },
-  "impuestos_pct": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Impuestos de importación no confirmados. Campo editable en productos.json."
-  },
-  "tasa_devoluciones_pct": {
-    "valor": null,
-    "url": null,
-    "estado": "no confirmado",
-    "detalles": "Tasa de devoluciones no confirmada."
-  },
-  "resenas": {
-    "hay_resenas": true,
-    "quejas": [
-      "El imán pierde adherencia con vibraciones fuertes.",
-      "La instalación en rejillas circulares resulta inestable.",
-      "La placa metálica incluida para pegar al celular es gruesa."
-    ],
-    "url": "https://www.mercadolibre.com.ar/soporte-celular-magnetico-para-auto-rejilla-mixio-zm-16-negro/p/MLA57061603",
-    "estado": "confirmado",
-    "detalles": "Reseñas de compradores en MercadoLibre sobre el soporte magnético."
+  "id": "prod-001",
+  "nombre": "Soporte magnético para celular auto para rejilla",
+  "categoria": "Accesorios para celulares",
+  "fecha_busqueda": "2026-10-14",
+  "evidencia_web": {
+    "mercadolibre": {
+      "titulo_encontrado": "Soporte Celular Magnético para Auto Rejilla Mixio ZM-16 Negro",
+      "precio_ars": 22999,
+      "tasa_dolar_referencia": 1400,
+      "publicaciones_competencia_aprox": 10,
+      "url": "https://www.mercadolibre.com.ar/soporte-celular-magnetico-para-auto-rejilla-mixio-zm-16-negro/p/MLA57061603",
+      "url_comisiones": "https://www.mercadolibre.com.ar/ayuda/Comisiones-y-costos-de-publicaci%C3%B3n/_MLA1055",
+      "comision_porcentaje": 12,
+      "opiniones_reales": [
+        "El imán se siente firme al principio pero con baches fuertes se suelta el celular.",
+        "La instalación en la rejilla de ventilación redonda no encaja bien y baila.",
+        "La chapa metálica incluida para pegar al teléfono tiene poco pegamento."
+      ]
+    },
+    "proveedor": {
+      "plataforma": "Alibaba / AliExpress",
+      "titulo": "Soporte Magnético para Celular en Rejilla de Ventilación de Auto Imán N52",
+      "precio_usd": 2.60,
+      "url": "https://spanish.alibaba.com/product-detail/Car-Air-Vent-Magnetic-Mount-N52-1601690125502.html",
+      "costo_envio_argentina": null,
+      "impuestos_especificos": null,
+      "devoluciones_estimadas": null
+    }
   }
 }

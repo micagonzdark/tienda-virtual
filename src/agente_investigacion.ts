@@ -43,13 +43,13 @@ export interface FichaProducto {
   inversion_stock_estimada: number | null;
 }
 
-// Función auxiliar para parsear y reparar JSON
+// Limpieza y parseo resiliente de JSON
 function parsearJsonRobusto(rawText: string): any {
   const match = rawText.match(/\{[\s\S]*\}/);
   if (!match) return null;
 
   let jsonStr = match[0];
-  // 1. Limpieza de sufijos ARS, USD, etc.
+  // 1. Eliminar sufijos comunes que rompen JSON
   jsonStr = jsonStr.replace(/:\s*([0-9.]+)\s*(?:ARS|USD|ars|usd|\$)\b/gi, ": $1");
   jsonStr = jsonStr.replace(/:\s*([0-9]+),([0-9]{1,2})\b/g, ": $1.$2");
   jsonStr = jsonStr.replace(/,\s*([}\]])/g, "$1");
@@ -108,43 +108,84 @@ export async function investigarProducto(
   console.log(`Investigando: ${candidato.nombre} (${candidato.id})`);
   console.log(`==================================================`);
 
-  let rawData: any = null;
+  if (!client) {
+    if (!apiKey) throw new Error("OPENAI_API_KEY no configurada");
+    client = new OpenAI({ apiKey });
+  }
 
-  // 1. Verificar si se debe usar cache
+  // Cargar instrucciones editables por el alumno en vivo
+  const instruccionesPath = path.resolve("./agente/instrucciones.md");
+  let instruccionesAlumno = "";
+  if (fs.existsSync(instruccionesPath)) {
+    instruccionesAlumno = fs.readFileSync(instruccionesPath, "utf-8");
+  }
+
+  let evidenciaBusqueda: any = null;
+
+  // 1. Obtención de Evidencia de Búsqueda Web (desde cache o búsqueda en vivo)
   if (usarCache && fs.existsSync(cachePath)) {
-    console.log(`⚡ Usando datos cacheados desde: data/cache/${candidato.id}.json`);
+    console.log(`⚡ Usando evidencia de búsqueda web en cache: data/cache/${candidato.id}.json`);
     try {
-      rawData = JSON.parse(fs.readFileSync(cachePath, "utf-8"));
+      const cacheData = JSON.parse(fs.readFileSync(cachePath, "utf-8"));
+      // Si el cache guardaba evidencia_web lo usamos, de lo contrario usamos el objeto directamente
+      evidenciaBusqueda = cacheData.evidencia_web || cacheData;
     } catch (e: any) {
       console.warn(`Error leyendo cache ${cachePath}: ${e.message}`);
     }
   }
 
-  // 2. Si no hay cache, ejecutar búsqueda web en vivo con OpenAI
-  if (!rawData) {
-    if (!client) {
-      if (!apiKey) throw new Error("OPENAI_API_KEY no configurada");
-      client = new OpenAI({ apiKey });
-    }
+  if (!evidenciaBusqueda) {
+    console.log("🌐 Realizando búsqueda web en vivo con OpenAI Responses API...");
+    try {
+      const webPrompt = `Buscá en MercadoLibre Argentina y proveedores como AliExpress/Alibaba información sobre: "${candidato.nombre}". Traé precios en ARS, cotización aproximada, URLs y opiniones reales de compradores.`;
+      const response = await (client as any).responses.create({
+        model: model,
+        tools: [{ type: "web_search_preview" }],
+        input: webPrompt,
+      });
 
-    // Cargar instrucciones editables por el alumno
-    const instruccionesPath = path.resolve("./agente/instrucciones.md");
-    let instruccionesAlumno = "";
-    if (fs.existsSync(instruccionesPath)) {
-      instruccionesAlumno = fs.readFileSync(instruccionesPath, "utf-8");
-    }
+      let text = "";
+      for (const item of response.output || []) {
+        if (item.type === "message" && item.content) {
+          for (const part of item.content) {
+            if (part.type === "output_text") text += part.text;
+          }
+        }
+      }
 
-    const prompt = `
+      evidenciaBusqueda = {
+        busqueda_en_vivo_texto: text,
+        fecha_captura: fechaHoy
+      };
+
+      // Guardar evidencia en cache para uso futuro
+      fs.writeFileSync(cachePath, JSON.stringify({ id: candidato.id, nombre: candidato.nombre, evidencia_web: evidenciaBusqueda }, null, 2), "utf-8");
+      console.log(`💾 Evidencia de búsqueda guardada en cache: data/cache/${candidato.id}.json`);
+    } catch (err: any) {
+      console.warn(`Aviso en búsqueda en vivo para ${candidato.nombre}: ${err.message}.`);
+      evidenciaBusqueda = { error: err.message };
+    }
+  }
+
+  // 2. EJECUCIÓN DEL MODELO EN VIVO:
+  // El modelo corre SIEMPRE en vivo aplicando las instrucciones actuales del alumno
+  // sobre la evidencia de búsqueda (cacheada o en vivo).
+  console.log("🧠 Ejecutando modelo en vivo con instrucciones actuales de agente/instrucciones.md...");
+
+  const promptModelo = `
 ${instruccionesAlumno}
 
-Investigá el siguiente producto específico:
+A continuación tenés la información obtenida de la búsqueda web para el producto:
 ID: "${candidato.id}"
-Producto: "${candidato.nombre}"
+Nombre: "${candidato.nombre}"
 Categoría: "${candidato.categoria}"
-Término sugerido para MercadoLibre: "${candidato.termino_busqueda_ml}"
-Término sugerido para Proveedores: "${candidato.termino_busqueda_proveedor}"
 
-Respondé con un JSON válido con esta estructura:
+EVIDENCIA DE BÚSQUEDA WEB:
+${JSON.stringify(evidenciaBusqueda, null, 2)}
+
+Tu tarea es analizar esta evidencia y generar la ficha estructurada respetando RIGUROSAMENTE las instrucciones y reglas de estilo arriba indicadas.
+
+Respondé ÚNICAMENTE con un JSON válido con esta estructura exacta:
 {
   "precio_venta_usd": { "valor": number | null, "valor_ars": number | null, "url": string | null, "estado": "confirmado" | "no confirmado", "detalles": string },
   "competencia_publicaciones": { "valor": number | null, "url": string | null, "estado": "confirmado" | "no confirmado", "detalles": string },
@@ -161,41 +202,31 @@ Respondé con un JSON válido con esta estructura:
     "detalles": string
   }
 }
-IMPORTANTE: Números como valores JSON válidos sin símbolos de moneda ni texto.
+IMPORTANTE: Números como valores JSON puros sin texto como 'ARS' ni '$'.
 `;
 
-    try {
-      console.log("🌐 Consultando web en vivo vía OpenAI Responses API...");
-      const response = await (client as any).responses.create({
-        model: model,
-        tools: [{ type: "web_search_preview" }],
-        input: prompt,
-      });
-
-      let text = "";
-      for (const item of response.output || []) {
-        if (item.type === "message" && item.content) {
-          for (const part of item.content) {
-            if (part.type === "output_text") text += part.text;
-          }
+  let rawData: any = null;
+  try {
+    const comp = await client.chat.completions.create({
+      model: model,
+      messages: [
+        {
+          role: "user",
+          content: promptModelo
         }
-      }
+      ],
+      response_format: { type: "json_object" },
+      temperature: 0.2
+    });
 
-      rawData = parsearJsonRobusto(text);
+    const rawContent = comp.choices[0]?.message?.content || "";
+    rawData = parsearJsonRobusto(rawContent);
 
-      // Si falló el parseo, ejecutar reintento automático con esquema
-      if (!rawData) {
-        rawData = await repararConReintento(client, text);
-      }
-
-      // Guardar en cache para ejecuciones futuras
-      if (rawData) {
-        fs.writeFileSync(cachePath, JSON.stringify(rawData, null, 2), "utf-8");
-        console.log(`💾 Resultado guardado en cache: data/cache/${candidato.id}.json`);
-      }
-    } catch (err: any) {
-      console.warn(`Aviso en búsqueda para ${candidato.nombre}: ${err.message}. Continuando de forma segura.`);
+    if (!rawData) {
+      rawData = await repararConReintento(client, rawContent);
     }
+  } catch (err: any) {
+    console.warn(`Error en llamada al modelo para ${candidato.nombre}: ${err.message}`);
   }
 
   // Normalizador de datos
@@ -238,18 +269,24 @@ IMPORTANTE: Números como valores JSON válidos sin símbolos de moneda ni texto
   const costoProveedor = normalizarDato(rawData?.costo_proveedor_usd);
   
   // Soporte para flete e impuestos editables por el alumno:
-  // Si en el archivo data/productos.json previo el alumno ya ingresó un valor, conservarlo.
+  // Si en data/productos.json previo el alumno ya cargó un número válido, conservarlo.
   const previo = productosExistentesMap?.get(candidato.id);
   
   let costoEnvio = normalizarDato(rawData?.costo_envio_usd);
   if (previo && previo.costo_envio && previo.costo_envio.valor !== null && typeof previo.costo_envio.valor === "number") {
-    costoEnvio = previo.costo_envio;
-    console.log(`✏️ Manteniendo costo de envío editado por alumno: $${costoEnvio.valor} USD`);
+    costoEnvio = {
+      ...previo.costo_envio,
+      detalles: previo.costo_envio.detalles || "Costo de envío cargado manualmente por el alumno"
+    };
+    console.log(`✏️ Manteniendo flete editado por alumno: $${costoEnvio.valor} USD`);
   }
 
   let impuestos = normalizarDato(rawData?.impuestos_pct);
   if (previo && previo.impuestos_pct && previo.impuestos_pct.valor !== null && typeof previo.impuestos_pct.valor === "number") {
-    impuestos = previo.impuestos_pct;
+    impuestos = {
+      ...previo.impuestos_pct,
+      detalles: previo.impuestos_pct.detalles || "Impuestos cargados manualmente por el alumno"
+    };
     console.log(`✏️ Manteniendo impuestos editados por alumno: ${impuestos.valor}%`);
   }
 
@@ -287,8 +324,8 @@ IMPORTANTE: Números como valores JSON válidos sin símbolos de moneda ni texto
   // Reglas de negocio desde data/reglas.json
   const reglasPath = path.resolve("./data/reglas.json");
   const reglas = JSON.parse(fs.readFileSync(reglasPath, "utf-8"));
-  const gananciaMinima = reglas.ganancia_minima_unidad_usd || 5.0;
-  const presupuestoStock = reglas.presupuesto_stock_usd || 300.0;
+  const gananciaMinima = reglas.ganancia_minima_unidad_usd ?? 5.0;
+  const presupuestoStock = reglas.presupuesto_stock_usd ?? 300.0;
 
   let cumpleReglas = true;
   const motivos: string[] = [];
@@ -362,12 +399,13 @@ export async function ejecutarInvestigacionCompleta(): Promise<FichaProducto[]> 
     } catch (e) {}
   }
 
-  console.log(`Iniciando investigación de ${candidatos.length} productos (Modo cache: ${usarCache ? "ACTIVADO" : "DESACTIVADO"})...`);
+  console.log(`Iniciando investigación de ${candidatos.length} productos (Modo cache web: ${usarCache ? "ACTIVADO" : "DESACTIVADO"})...`);
   
-  let client: OpenAI | undefined;
-  if (!usarCache && apiKey) {
-    client = new OpenAI({ apiKey });
+  if (!apiKey) {
+    console.error("ERROR: OPENAI_API_KEY no configurada en .env");
+    process.exit(1);
   }
+  const client = new OpenAI({ apiKey });
 
   const productos: FichaProducto[] = [];
 

@@ -121,3 +121,19 @@
 - **Lanzador Mac**: Se creó `Abrir Tienda.command` con validación de Node, instalación automática de dependencias y apertura automática del navegador.
 - **Guía del Alumno**: Se creó `README_ALUMNO.md` de exactamente 12 líneas (cumpliendo el tope de 15 líneas).
 - **Actualización de Documentación**: Se sincronizó `PRUEBA_TIENDA.md` con el informe de la plantilla y el resumen final de 5 líneas.
+
+## Verificación Honesta y Correcciones Técnicas de la Plantilla
+1. **Prueba de Efecto y Corrección del Caché**:
+   - Se detectó que el caché original almacenaba el resultado del modelo, impidiendo que los cambios del alumno en `agente/instrucciones.md` surtieran efecto en modo demo.
+   - Se corrigió la arquitectura: el caché ahora almacena exclusivamente la evidencia de búsqueda web.
+   - El modelo `gpt-4o-mini` corre siempre en vivo sobre dicha evidencia.
+   - Al agregar una consigna de tono formal y una sola oración en `agente/instrucciones.md`, el modelo modificó en vivo las descripciones (ej: `"El artículo presenta un costo competitivo en la plaza comercial analizada."`).
+   - Tiempo de ejecución medido con modelo en vivo y caché web: **19.70 segundos**.
+2. **Prueba de Reglas de Negocio y Margen Confirmado**:
+   - Con ganancia mínima en 50 USD, todos los productos fueron descartados automáticamente (ranking 0/3).
+   - Al cargar flete ($2.50) e impuestos (10.5%) en `prod-001`, el sistema recalculó el margen a $7.19 USD (45.3%) y `ranking.html` cambió su estado de `⚠️ Margen Provisional` a `✅ Margen Confirmado`.
+3. **Auditoría de `Abrir Tienda.command`**:
+   - Se forzó formato UNIX LF (`\n`).
+   - Se configuró el permiso ejecutable Git en `100755` (`chmod +x`).
+   - Se agregó `export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"` para Apple Silicon e Intel.
+   - Se documentaron las restricciones no testeables en Windows (Gatekeeper quarantine y permisos de sudo de Homebrew).
